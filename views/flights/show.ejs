@@ -17,6 +17,31 @@
         <div>
             <%= flight.departsDate %>
         </div>
+        <% flight.destinations.forEach(function(f) { %>
+            <div>Destinations: </div>
+            <div>
+                <%= f ? f.airport : '' %>
+            </div>
+            <div>Arrival Date: </div>
+            <div>
+                <%= f ? f.arrivalDate : '' %>
+            </div>
+            <% }); %>
     </section>
 
+    <br><br>
+    <form method="POST" action="/flights/<%= flight._id %>/destinations">
+        <select name="airport">
+            <label>Destination:</label>
+            <option> ---Choose Aiport--- </option>
+            <option> AUS </option>
+            <option> DFW </option>
+            <option> DEN </option>
+            <option> LAX </option>
+            <option> SAN </option>
+        </select>
+        <label>Arrival Date</label>
+        <input type="datetime-local" name="arrivalDate" min="2023-07-12" max="2032-12-31">
+        <input type="submit" value="Add Destination & Arrival">
+    </form>
     <%- include('../partials/footer') %>
