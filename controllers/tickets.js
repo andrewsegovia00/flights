@@ -8,29 +8,20 @@ module.exports = {
 };
 
 async function addTicket(req, res) {
-    console.log(req.params.id)
-    console.log(req.body.seat)
-    console.log(req.body.price)
-    
   const flight = await Flight.findById(req.params.id);
-  try {
-    await Flight.create(req.body);
-    // res.redirect('/flights/');
-  } catch (err) {
-    console.log(err);
-    res.render('flights/new', { errorMsg: err.message });
-  }
-  Ticket.create(flight);
+    req.body.flight = flight;
+  await Ticket.create(req.body);
 
-  const tickets = await Ticket.find({}).sort('seat');
-  res.render('tickets/new', { title: 'Add Ticket', tickets });
-
-  res.redirect(`/flights/${flight._id}, `);
+  res.redirect(`/flights/${req.params.id}`);
 }
 
 async function newTicket(req, res) {
+try {
   const tickets = await Ticket.find({}).sort('seat');
   res.render('tickets/new', { title: 'Add Ticket', tickets });
+} catch (err) {
+    console.log(err);
+  }
 }
 
 async function create(req, res) {

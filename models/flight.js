@@ -22,13 +22,6 @@ const destinationSchema = new Schema({
     timestamps: true
   });
 
-/*
-airport	String	enum to include
-‘AUS’, ‘DFW’, ‘DEN’, ‘LAX’ & ‘SAN’
-(your choice)	n/a
-arrival	Date	n/a	
-*/
-
 const flightSchema = new Schema({
   airline: { 
     type: String,
